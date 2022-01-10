@@ -32,6 +32,12 @@ data-column-id="{{ column_id }}"
       </label>
     </div>
     <div class="mdc-layout-grid__cell--span-12">
+      Pages
+      <a href="{{ url_for(request.endpoint) }}?page=1">1</a>
+      <a href="{{ url_for(request.endpoint) }}?page=2">2</a>
+      <a href="{{ url_for(request.endpoint) }}?page=3">3</a>
+    </div>
+    <div class="mdc-layout-grid__cell--span-12">
       <div class="vuln-table mdc-data-table">
         <table class="mdc-data-table__table" aria-label="Dessert calories">
           <thead>
@@ -70,10 +76,6 @@ data-column-id="{{ column_id }}"
           </tbody>
         </table>
       </div>
-      Pages
-      <a href="{{ url_for(request.endpoint) }}?page=1" data-turbo-frame="vulnerability-tbody">1</a>
-      <a href="{{ url_for(request.endpoint) }}?page=2" data-turbo-frame="vulnerability-tbody">2</a>
-      <a href="{{ url_for(request.endpoint) }}?page=3" data-turbo-frame="vulnerability-tbody">3</a>
     </div>
   </div>
 </div>

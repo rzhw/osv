@@ -11,3 +11,5 @@ import {MDCTextField} from '@material/textfield';
 const textField = new MDCTextField(document.querySelector('.mdc-text-field'));
 import {MDCTextFieldIcon} from '@material/textfield/icon';
 const icon = new MDCTextFieldIcon(document.querySelector('.mdc-text-field-icon'));
+
+import * as Turbo from '@hotwired/turbo';
