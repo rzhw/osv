@@ -22,8 +22,10 @@ from flask import make_response
 from flask import render_template
 from flask import request
 
+import json
 import osv
 import rate_limiter
+import requests
 import source_mapper
 
 blueprint = Blueprint('frontend_handlers', __name__)
@@ -80,26 +82,18 @@ def index():
 @blueprint.route('/list3')
 def list3():
   """Main page."""
-  vulnerabilities = [
-    {
-      "id": "OSV-2021-586",
-      "summary": "Use-of-uninitialized-value in void intra_prediction_angular<unsigned short>",
-      "packages": ["OSS-Fuzz/kimageformats"],
-      "versions": ["v5.80.0", "v5.80.0-rc1", "v5.81.0", "v5.81.0-rc1", "v5.81.0-rc2", "v5.82.0-rc1"]
-    },
-    {
-      "id": "OSV-2021-451",
-      "summary": "Heap-buffer-overflow in void apply_sao_internal<unsigned short>",
-      "packages": ["OSS-Fuzz/kimageformats"],
-      "versions": ["v5.80.0", "v5.80.0-rc1", "v5.81.0", "v5.81.0-rc1", "v5.81.0-rc2", "v5.82.0-rc1"]
-    },
-    {
-      "id": "GHSA-xrr9-rh8p-433v",
-      "summary": "Request smuggling is possible when both chunked TE and content length specified",
-      "packages": ["Maven/io.ktor:ktor-server-cio", "Maven/io.ktor:ktor-client-cio"],
-      "versions": ["1.0.0", "1.0.0-rc", "1.0.1", "1.1.0", "1.1.1", "1.1.2", "1.1.3", "1.1.4"]
-    }
-  ]
+  response = requests.get('https://osv.dev/backend/query?page=1&search=&affected_only=true&ecosystem=')
+  results = json.loads(response.content)
+
+  vulnerabilities = []
+  for item in results['items']:
+    vulnerabilities.append({
+      "id": item['id'],
+      "summary": item['summary'],
+      "packages": item['affected'][0]['package']['ecosystem'],
+      "versions": item['affected'][0]['versions']
+    })
+
   return render_template('list.html', vulnerabilities = vulnerabilities)
 
 
