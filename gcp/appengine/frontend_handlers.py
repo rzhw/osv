@@ -82,7 +82,8 @@ def index():
 @blueprint.route('/list3')
 def list3():
   """Main page."""
-  response = requests.get('https://osv.dev/backend/query?page=1&search=&affected_only=true&ecosystem=')
+  page = request.args.get('page') if request.args.get('page').isnumeric() else '1'
+  response = requests.get('https://osv.dev/backend/query?page=%s&search=&affected_only=true&ecosystem=' % page)
   results = json.loads(response.content)
 
   vulnerabilities = []

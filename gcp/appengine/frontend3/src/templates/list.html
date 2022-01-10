@@ -70,6 +70,10 @@ data-column-id="{{ column_id }}"
           </tbody>
         </table>
       </div>
+      Pages
+      <a href="{{ url_for(request.endpoint) }}?page=1" data-turbo-frame="vulnerability-tbody">1</a>
+      <a href="{{ url_for(request.endpoint) }}?page=2" data-turbo-frame="vulnerability-tbody">2</a>
+      <a href="{{ url_for(request.endpoint) }}?page=3" data-turbo-frame="vulnerability-tbody">3</a>
     </div>
   </div>
 </div>
