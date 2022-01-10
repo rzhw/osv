@@ -77,6 +77,12 @@ def index():
   return render_template('index.html')
 
 
+@blueprint.route('/list3')
+def list3():
+  """Main page."""
+  return render_template('list.html')
+
+
 def bug_to_response(bug, detailed=True):
   """Convert a Bug entity to a response object."""
   response = osv.vulnerability_to_dict(

@@ -1,0 +1,83 @@
+@use 'sass:string';
+
+$osv-background: #292929;
+$osv-text-color: #fff;
+$osv-font-family: string.unquote('Overpass, sans-serif');
+
+@use '@material/theme' with (
+  $surface: $osv-background,
+);
+@use '@material/layout-grid/mdc-layout-grid';
+@use '@material/icon-button'; // Required only for data table with column sorting.
+@use '@material/data-table/data-table';
+@use '@material/data-table/data-table-theme';
+@use '@material/floating-label/mdc-floating-label';
+@use '@material/textfield';
+@use '@material/textfield/icon';
+@include data-table.core-styles;
+@include data-table.theme-baseline;
+@include textfield.core-styles;
+@include icon.icon-core-styles;
+
+@mixin full-width {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+body {
+  background: $osv-background;
+  color: $osv-text-color;
+  font-family: $osv-font-family;
+  --mdc-theme-primary: $osv-text-color;
+  --mdc-theme-surface: $osv-background;
+  --mdc-theme-background: $osv-background;
+  --mdc-typography-font-family: $osv-font-family;
+  --mdc-text-field-fill-color: #696969;
+  --mdc-text-field-ink-color: $osv-text-color;
+}
+
+.top-bar {
+  display: flex;
+  padding: 34px 40px;
+
+  .logo {
+    $logo-width: 53px;
+    flex: 1 0 ($logo-width + 40px);
+    max-width: $logo-width + 112px;
+  }
+
+  .tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    gap: 40px;
+
+    li {
+      $active-spacing: 6px;
+      margin: -$active-spacing 0;
+      padding: $active-spacing 0;
+      &.active {
+        border-bottom: 8px solid $osv-text-color;
+      }
+    }
+  }
+}
+
+.search-container {
+  .mdc-text-field {
+    border: 2px solid $osv-text-color;
+    width: 100%;
+
+    &.mdc-text-field--focused {
+      @include textfield.label-color(textfield.$helper-text-color);
+    }
+  }
+}
+
+.vuln-table {
+  @include full-width();
+}
