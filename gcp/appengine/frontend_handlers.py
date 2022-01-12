@@ -82,7 +82,7 @@ def index():
 @blueprint.route('/frontend3/list')
 def list():
   """Main page."""
-  page = request.args.get('page') if request.args.get('page').isnumeric() else '1'
+  page = request.args.get('page') if request.args.get('page') and request.args.get('page').isnumeric() else '1'
   response = requests.get('https://osv.dev/backend/query?page=%s&search=&affected_only=true&ecosystem=' % page)
   results = json.loads(response.content)
 
