@@ -108,7 +108,13 @@ def vulnerability(id):
     "id": results['id'],
     "summary": results['summary'],
     "packages": results['affected'][0]['package']['ecosystem'],
-    "versions": results['affected'][0]['versions']
+    "versions": results['affected'][0]['versions'],
+    "details": results['details'],
+    "modified": results['modified'],
+    "published": results['published'],
+    "references": results['references'],
+    "source": results['source'],
+    "source_link": results['source_link'],
   }
 
   return render_template('vulnerability.html', vulnerability = vulnerability)
