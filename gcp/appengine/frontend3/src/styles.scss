@@ -40,6 +40,10 @@ body {
   --mdc-text-field-ink-color: $osv-text-color;
 }
 
+turbo-frame {
+  display: contents;
+}
+
 .top-bar {
   display: flex;
   padding: 34px 40px;

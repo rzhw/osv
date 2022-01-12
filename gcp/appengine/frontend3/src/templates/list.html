@@ -31,52 +31,54 @@ data-column-id="{{ column_id }}"
         <span class="mdc-line-ripple"></span>
       </label>
     </div>
-    <div class="mdc-layout-grid__cell--span-12">
-      Pages
-      <a href="{{ url_for(request.endpoint) }}?page=1">1</a>
-      <a href="{{ url_for(request.endpoint) }}?page=2">2</a>
-      <a href="{{ url_for(request.endpoint) }}?page=3">3</a>
-    </div>
-    <div class="mdc-layout-grid__cell--span-12">
-      <div class="vuln-table mdc-data-table">
-        <table class="mdc-data-table__table" aria-label="Dessert calories">
-          <thead>
-            <tr class="mdc-data-table__header-row">
-              {{ table_header_cell('id', 'ID') }}
-              {{ table_header_cell('package', 'Packages') }}
-              {{ table_header_cell('summary', 'Summary') }}
-              {{ table_header_cell('affected-versions', 'Affected versions') }}
-              {{ table_header_cell('ecosystem', 'Ecosystem') }}
-              {{ table_header_cell('last-modified', 'Last modified') }}
-            </tr>
-          </thead>
-          <tbody class="mdc-data-table__content">
-            {% for vulnerability in vulnerabilities %}
-            <tr class="mdc-data-table__row">
-              <td class="mdc-data-table__cell">
-                {{ vulnerability.id }}
-              </td>
-              <td class="mdc-data-table__cell">
-                {% for package in vulnerability.packages %}
-                  {{ package }}
-                {% endfor %}
-              </td>
-              <td class="mdc-data-table__cell">
-                {{ vulnerability.summary }}
-              </td>
-              <td class="mdc-data-table__cell">
-                {% for version in vulnerability.versions %}
-                  {{ version }}
-                {% endfor %}
-              </td>
-              <td class="mdc-data-table__cell"></td>
-              <td class="mdc-data-table__cell"></td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+    <turbo-frame id="vulnerability-table" data-turbo-action="advance">
+      <div class="mdc-layout-grid__cell--span-12">
+        Pages
+        <a href="{{ url_for(request.endpoint) }}?page=1">1</a>
+        <a href="{{ url_for(request.endpoint) }}?page=2">2</a>
+        <a href="{{ url_for(request.endpoint) }}?page=3">3</a>
       </div>
-    </div>
+      <div class="mdc-layout-grid__cell--span-12">
+        <div class="vuln-table mdc-data-table">
+          <table class="mdc-data-table__table" aria-label="Dessert calories">
+            <thead>
+              <tr class="mdc-data-table__header-row">
+                {{ table_header_cell('id', 'ID') }}
+                {{ table_header_cell('package', 'Packages') }}
+                {{ table_header_cell('summary', 'Summary') }}
+                {{ table_header_cell('affected-versions', 'Affected versions') }}
+                {{ table_header_cell('ecosystem', 'Ecosystem') }}
+                {{ table_header_cell('last-modified', 'Last modified') }}
+              </tr>
+            </thead>
+            <tbody class="mdc-data-table__content">
+              {% for vulnerability in vulnerabilities %}
+              <tr class="mdc-data-table__row">
+                <td class="mdc-data-table__cell">
+                  {{ vulnerability.id }}
+                </td>
+                <td class="mdc-data-table__cell">
+                  {% for package in vulnerability.packages %}
+                  {{ package }}
+                  {% endfor %}
+                </td>
+                <td class="mdc-data-table__cell">
+                  {{ vulnerability.summary }}
+                </td>
+                <td class="mdc-data-table__cell">
+                  {% for version in vulnerability.versions %}
+                  {{ version }}
+                  {% endfor %}
+                </td>
+                <td class="mdc-data-table__cell"></td>
+                <td class="mdc-data-table__cell"></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </turbo-frame>
   </div>
 </div>
 {% endblock %}
