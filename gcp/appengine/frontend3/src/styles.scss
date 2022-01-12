@@ -40,6 +40,10 @@ body {
   --mdc-text-field-ink-color: $osv-text-color;
 }
 
+a {
+  cursor: pointer;
+}
+
 turbo-frame {
   display: contents;
 }
