@@ -98,6 +98,22 @@ def list3():
   return render_template('list.html', vulnerabilities = vulnerabilities)
 
 
+@blueprint.route('/vulnerability3/<name>')
+def vulnerability3(name):
+  """Vulnerability page."""
+  response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % name)
+  results = json.loads(response.content)
+
+  vulnerability = {
+    "id": results['id'],
+    "summary": results['summary'],
+    "packages": results['affected'][0]['package']['ecosystem'],
+    "versions": results['affected'][0]['versions']
+  }
+
+  return render_template('vulnerability.html', vulnerability = vulnerability)
+
+
 def bug_to_response(bug, detailed=True):
   """Convert a Bug entity to a response object."""
   response = osv.vulnerability_to_dict(
