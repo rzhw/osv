@@ -9,7 +9,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'static/[name].js'
+    filename: 'static/[name].js',
+    publicPath: '/',
   },
   devServer: {
     static: '../dist/static',

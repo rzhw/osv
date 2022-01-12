@@ -79,8 +79,8 @@ def index():
   return render_template('index.html')
 
 
-@blueprint.route('/list3')
-def list3():
+@blueprint.route('/frontend3/list')
+def list():
   """Main page."""
   page = request.args.get('page') if request.args.get('page').isnumeric() else '1'
   response = requests.get('https://osv.dev/backend/query?page=%s&search=&affected_only=true&ecosystem=' % page)
@@ -98,8 +98,8 @@ def list3():
   return render_template('list.html', vulnerabilities = vulnerabilities)
 
 
-@blueprint.route('/vulnerability3/<name>')
-def vulnerability3(name):
+@blueprint.route('/frontend3/vulnerability/<name>')
+def vulnerability(name):
   """Vulnerability page."""
   response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % name)
   results = json.loads(response.content)
