@@ -98,10 +98,10 @@ def list():
   return render_template('list.html', vulnerabilities = vulnerabilities)
 
 
-@blueprint.route('/frontend3/vulnerability/<name>')
-def vulnerability(name):
+@blueprint.route('/frontend3/vulnerability/<id>')
+def vulnerability(id):
   """Vulnerability page."""
-  response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % name)
+  response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % id)
   results = json.loads(response.content)
 
   vulnerability = {

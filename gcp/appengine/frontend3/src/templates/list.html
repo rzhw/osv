@@ -31,12 +31,12 @@ data-column-id="{{ column_id }}"
         <span class="mdc-line-ripple"></span>
       </label>
     </div>
-    <turbo-frame id="vulnerability-table" data-turbo-action="advance">
+    <turbo-frame id="vulnerability-table" data-turbo-action="advance" target="_top">
       <div class="mdc-layout-grid__cell--span-12">
         Pages
-        <a href="{{ url_for(request.endpoint) }}?page=1">1</a>
-        <a href="{{ url_for(request.endpoint) }}?page=2">2</a>
-        <a href="{{ url_for(request.endpoint) }}?page=3">3</a>
+        <a href="{{ url_for(request.endpoint) }}?page=1" data-turbo-frame="_self">1</a>
+        <a href="{{ url_for(request.endpoint) }}?page=2" data-turbo-frame="_self">2</a>
+        <a href="{{ url_for(request.endpoint) }}?page=3" data-turbo-frame="_self">3</a>
       </div>
       <div class="mdc-layout-grid__cell--span-12">
         <div class="vuln-table mdc-data-table">
@@ -55,7 +55,7 @@ data-column-id="{{ column_id }}"
               {% for vulnerability in vulnerabilities %}
               <tr class="mdc-data-table__row">
                 <td class="mdc-data-table__cell">
-                  {{ vulnerability.id }}
+                  <a href="{{ url_for('frontend_handlers.vulnerability', id=vulnerability.id) }}">{{ vulnerability.id }}</a>
                 </td>
                 <td class="mdc-data-table__cell">
                   {% for package in vulnerability.packages %}
