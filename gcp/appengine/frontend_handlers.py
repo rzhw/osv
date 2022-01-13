@@ -90,7 +90,7 @@ def list():
   for item in results['items']:
     vulnerabilities.append({
       "id": item['id'],
-      "summary": item['summary'],
+      "summary": item['summary'] or '',
       "packages": item['affected'][0]['package']['ecosystem'],
       "versions": item['affected'][0]['versions']
     })
@@ -106,10 +106,10 @@ def vulnerability(id):
 
   vulnerability = {
     "id": results['id'],
-    "summary": results['summary'],
+    "summary": results['summary'] or '',
     "packages": results['affected'][0]['package']['ecosystem'],
     "versions": results['affected'][0]['versions'],
-    "details": results['details'],
+    "details": results['details'] or '',
     "modified": results['modified'],
     "published": results['published'],
     "references": results['references'],
