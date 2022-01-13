@@ -90,7 +90,7 @@ def list():
   for item in results['items']:
     vulnerabilities.append({
       "id": item['id'],
-      "summary": item['summary'] or '',
+      "summary": item['summary'] if 'summary' in item else '',
       "packages": item['affected'][0]['package']['ecosystem'],
       "versions": item['affected'][0]['versions']
     })
@@ -102,19 +102,19 @@ def list():
 def vulnerability(id):
   """Vulnerability page."""
   response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % id)
-  results = json.loads(response.content)
+  item = json.loads(response.content)
 
   vulnerability = {
-    "id": results['id'],
-    "summary": results['summary'] or '',
-    "packages": results['affected'][0]['package']['ecosystem'],
-    "versions": results['affected'][0]['versions'],
-    "details": results['details'] or '',
-    "modified": results['modified'],
-    "published": results['published'],
-    "references": results['references'],
-    "source": results['source'],
-    "source_link": results['source_link'],
+    "id": item['id'],
+    "summary": item['summary'] if 'summary' in item else '',
+    "packages": item['affected'][0]['package']['ecosystem'],
+    "versions": item['affected'][0]['versions'],
+    "details": item['details'] if 'details' in item else '',
+    "modified": item['modified'],
+    "published": item['published'],
+    "references": item['references'],
+    "source": item['source'],
+    "source_link": item['source_link'],
   }
 
   return render_template('vulnerability.html', vulnerability = vulnerability)
