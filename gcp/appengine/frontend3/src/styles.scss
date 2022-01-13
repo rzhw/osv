@@ -46,6 +46,7 @@ a {
   text-decoration: underline;
 }
 
+h1,
 pre {
   font-family: 'Overpass Mono', monospace;
 }
@@ -87,7 +88,13 @@ turbo-frame {
 
 /** List page */
 
+.list-page .title {
+  font-size: 20px;
+}
+
 .search-container {
+  margin-top: 22px;
+
   .mdc-text-field {
     border: 2px solid $osv-text-color;
     width: 100%;
@@ -105,7 +112,6 @@ turbo-frame {
 /** Vulnerability page */
 
 .vulnerability-page .title {
-  font-family: 'Overpass Mono', monospace;
   font-size: 60px;
 }
 
