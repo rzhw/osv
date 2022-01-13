@@ -32,6 +32,7 @@ body {
   background: $osv-background;
   color: $osv-text-color;
   font-family: $osv-font-family;
+  font-size: 14px;
   --mdc-theme-primary: $osv-text-color;
   --mdc-theme-surface: $osv-background;
   --mdc-theme-background: $osv-background;
@@ -42,6 +43,7 @@ body {
 
 a {
   cursor: pointer;
+  text-decoration: underline;
 }
 
 turbo-frame {
@@ -63,17 +65,23 @@ turbo-frame {
     list-style: none;
     margin: 0;
     gap: 40px;
+    font-size: 16px;
 
     li {
       $active-spacing: 6px;
       margin: -$active-spacing 0;
       padding: $active-spacing 0;
+      a {
+        text-decoration: none;
+      }
       &.active {
         border-bottom: 8px solid $osv-text-color;
       }
     }
   }
 }
+
+/** List page */
 
 .search-container {
   .mdc-text-field {
@@ -88,4 +96,26 @@ turbo-frame {
 
 .vuln-table {
   @include full-width();
+}
+
+/** Vulnerability page */
+
+.vulnerability-page .title {
+  font-family: 'Overpass Mono', monospace;
+  font-size: 60px;
+}
+
+.vulnerability-details {
+  display: grid;
+  grid-template-columns: max-content auto;
+
+  dt {
+    grid-column: 1;
+    font-weight: bold;
+    padding-right: 18px;
+  }
+
+  dd {
+    grid-column: 2;
+  }
 }
