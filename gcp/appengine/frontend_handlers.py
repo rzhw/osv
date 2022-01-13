@@ -79,6 +79,11 @@ def index():
   return render_template('index.html')
 
 
+@blueprint.route('/frontend3/home')
+def index3():
+  return render_template('home.html')
+
+
 @blueprint.route('/frontend3/list')
 def list():
   """Main page."""
