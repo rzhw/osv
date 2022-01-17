@@ -55,6 +55,22 @@ turbo-frame {
   display: contents;
 }
 
+/** WIP notice */
+
+.wip-notice {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  background: #b31412;
+  color: #fff;
+  justify-content: center;
+  top: 0;
+  z-index: 999;
+}
+
+/** Top bar */
+
 .top-bar {
   display: flex;
   padding: 34px 40px;
