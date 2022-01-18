@@ -8,16 +8,10 @@ $osv-font-family: string.unquote('Overpass, sans-serif');
   $surface: $osv-background,
 );
 @use '@material/layout-grid/mdc-layout-grid';
-@use '@material/icon-button'; // Required only for data table with column sorting.
 @use '@material/data-table/data-table';
 @use '@material/data-table/data-table-theme';
-@use '@material/floating-label/mdc-floating-label';
-@use '@material/textfield';
-@use '@material/textfield/icon';
 @include data-table.core-styles;
 @include data-table.theme-baseline;
-@include textfield.core-styles;
-@include icon.icon-core-styles;
 
 @mixin full-width {
   width: 100vw;
@@ -139,15 +133,43 @@ turbo-frame {
 
 .search-container {
   margin-top: 22px;
+  border: 2px solid $osv-text-color;
+  border-radius: 8px;
+  --mdc-text-field-fill-color: rgba(255, 255, 255, 0.3);
+  --mdc-text-field-label-ink-color: $osv-text-color;
 
-  .mdc-text-field {
-    border: 2px solid $osv-text-color;
+  // Make the inner search field full-width.
+  .search-field {
     width: 100%;
-
-    &.mdc-text-field--focused {
-      @include textfield.label-color(textfield.$helper-text-color);
-    }
   }
+
+  // Hax: Use our own icon because mwc-textfield supplies a dark gray one. Maybe M3 will fix it:
+  // https://github.com/material-components/material-web/commit/0c200ecf04a533b1dc56932c3979e3e5d8fb7d73
+  position: relative;
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  // Hax: Get rid of the material underline.
+  overflow: hidden; /* The underline would otherwise show underneath the border radius. */
+  &::after {
+    margin-bottom: -4px;
+    background: #fff;
+    height: 2px;
+    position: relative;
+    top: -2px;
+    content: '';
+    display: block;
+  }
+}
+
+// Hax: Make @material/mwc-icon-button play well with @material/data-table.
+mwc-icon-button.mdc-data-table__sort-icon-button {
+  width: auto;
+  height: auto;
+  --mdc-icon-button-size: 36px;
 }
 
 .vuln-table {
