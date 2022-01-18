@@ -20,7 +20,7 @@
       </a>
     </div>
     <ul class="tabs">
-      <li class="active">
+      <li class="{{ 'active' if active_section == 'vulnerabilities' else '' }}">
         <a href="{{ url_for('frontend_handlers.list') }}">Vulnerability Database</a>
       </li>
       <li>About</li>
