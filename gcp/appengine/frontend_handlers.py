@@ -87,6 +87,7 @@ def index_v2():
 @blueprint.route('/v2/list')
 def list():
   """Main page."""
+  # TODO: Can/should we do this as an internal query not a full on request to osv.dev?
   page = request.args.get('page') if request.args.get('page') and request.args.get('page').isnumeric() else '1'
   response = requests.get('https://osv.dev/backend/query?page=%s&search=&affected_only=true&ecosystem=' % page)
   results = json.loads(response.content)
@@ -106,6 +107,7 @@ def list():
 @blueprint.route('/v2/vulnerability/<id>')
 def vulnerability(id):
   """Vulnerability page."""
+  # TODO: Can/should we do this as an internal query not a full on request to osv.dev?
   response = requests.get('https://osv.dev/backend/vulnerability?id=%s' % id)
   item = json.loads(response.content)
 
