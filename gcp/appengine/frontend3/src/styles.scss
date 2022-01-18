@@ -28,6 +28,34 @@ $osv-font-family: string.unquote('Overpass, sans-serif');
   margin-right: -50vw;
 }
 
+/** Reset */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+ol, ul, menu {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  max-width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/** Global styles */
+
 body {
   background: $osv-background;
   color: $osv-text-color;
@@ -42,6 +70,7 @@ body {
 }
 
 a {
+  color: $osv-text-color;
   cursor: pointer;
   text-decoration: underline;
 }
