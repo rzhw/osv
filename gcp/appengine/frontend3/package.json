@@ -14,8 +14,7 @@
     "@material/mwc-icon": "^0.25.3",
     "@material/mwc-icon-button": "^0.25.3",
     "@material/mwc-textfield": "^0.25.3",
-    "@material/theme": "^13.0.0",
-    "the-new-css-reset": "^1.4.1"
+    "@material/theme": "^13.0.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.0",
