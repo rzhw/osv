@@ -222,4 +222,8 @@ mwc-icon-button.mdc-data-table__sort-icon-button {
       background: #aaa;
     }
   }
+
+  [role="tabpanel"] {
+    border-top: 1px dashed #fff;
+  }
 }
