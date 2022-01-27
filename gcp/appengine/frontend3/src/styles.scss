@@ -201,3 +201,25 @@ mwc-icon-button.mdc-data-table__sort-icon-button {
     grid-column: 2;
   }
 }
+
+.vulnerability-packages {
+  // Settings for <spicy-sections>.
+  --const-mq-affordances:
+    [screen] tab-bar
+  ;
+
+  // Tab bar styling.
+  &[affordance="tab-bar"] h2 {
+    color: #000;
+    cursor: pointer;
+    padding: 10px;
+
+    &[tabindex="0"] {
+      background: #fff;
+    }
+
+    &:not([tabindex="0"]) {
+      background: #aaa;
+    }
+  }
+}
