@@ -114,6 +114,7 @@ def vulnerability(id):
   vulnerability = {
     "id": item['id'],
     "summary": item['summary'] if 'summary' in item else '',
+    "affected": item['affected'],
     "packages": item['affected'][0]['package']['ecosystem'],
     "versions": item['affected'][0]['versions'],
     "details": item['details'] if 'details' in item else '',
