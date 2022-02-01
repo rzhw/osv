@@ -41,6 +41,7 @@ class IntegrationTests(unittest.TestCase):
 
   _VULN_744 = {
       'published': '2020-07-04T00:00:01.948828Z',
+      'schema_version': '1.2.0',
       'affected': [{
           'database_specific': {
               'source': 'https://github.com/google/oss-fuzz-vulns/'
@@ -51,7 +52,8 @@ class IntegrationTests(unittest.TestCase):
           },
           'package': {
               'ecosystem': 'OSS-Fuzz',
-              'name': 'mruby'
+              'name': 'mruby',
+              'purl': 'pkg:generic/mruby'
           },
           'ranges': [{
               'events': [{
@@ -82,6 +84,7 @@ class IntegrationTests(unittest.TestCase):
 
   _VULN_2258 = {
       'published': '2020-12-11T00:00:45.856Z',
+      'schema_version': '1.2.0',
       'details': 'INVALID',
       'id': 'OSV-2020-2258',
       'references': [{
@@ -92,6 +95,8 @@ class IntegrationTests(unittest.TestCase):
   }
 
   _VULN_GO_2020_0004 = {
+      'schema_version':
+          '1.2.0',
       'id':
           'GO-2020-0004',
       'affected': [{
@@ -109,7 +114,8 @@ class IntegrationTests(unittest.TestCase):
           },
           'package': {
               'ecosystem': 'Go',
-              'name': 'github.com/nanobox-io/golang-nanoauth'
+              'name': 'github.com/nanobox-io/golang-nanoauth',
+              'purl': 'pkg:golang/github.com/nanobox-io/golang-nanoauth'
           },
           'ranges': [{
               'events': [{
@@ -140,6 +146,8 @@ class IntegrationTests(unittest.TestCase):
   }
 
   _VULN_GO_2020_0015 = {
+      'schema_version':
+          '1.2.0',
       'affected': [{
           'database_specific': {
               'source': 'https://storage.googleapis.com/go-vulndb/byID/'
@@ -152,7 +160,8 @@ class IntegrationTests(unittest.TestCase):
           },
           'package': {
               'ecosystem': 'Go',
-              'name': 'golang.org/x/text/encoding/unicode'
+              'name': 'golang.org/x/text/encoding/unicode',
+              'purl': 'pkg:golang/golang.org/x/text/encoding/unicode',
           },
           'ranges': [{
               'events': [{
@@ -174,7 +183,8 @@ class IntegrationTests(unittest.TestCase):
           },
           'package': {
               'ecosystem': 'Go',
-              'name': 'golang.org/x/text/transform'
+              'name': 'golang.org/x/text/transform',
+              'purl': 'pkg:golang/golang.org/x/text/transform'
           },
           'ranges': [{
               'events': [{
@@ -213,6 +223,64 @@ class IntegrationTests(unittest.TestCase):
       }, {
           'type': 'WEB',
           'url': 'https://groups.google.com/g/golang-announce/c/bXVeAmGOqz0'
+      }]
+  }
+
+  _VULN_RUSTSEC_2020_0105 = {
+      'schema_version':
+          '1.2.0',
+      'id':
+          'RUSTSEC-2020-0105',
+      'summary':
+          'Update unsound DrainFilter and RString::retain',
+      'details':
+          'Affected versions of this crate contained code from the '
+          'Rust standard library that contained soundness bugs '
+          'rust-lang/rust#60977 (double drop) & rust-lang/rust#78498 '
+          '(create invalid utf-8 string).\n\n'
+          'The flaw was corrected in v0.9.1 by making a similar fix '
+          'to the one made in the Rust standard library.',
+      'aliases': ['CVE-2020-36212', 'CVE-2020-36213'],
+      'published':
+          '2020-12-21T12:00:00Z',
+      'references': [{
+          'type': 'PACKAGE',
+          'url': 'https://crates.io/crates/abi_stable'
+      }, {
+          'type': 'ADVISORY',
+          'url': 'https://rustsec.org/advisories/RUSTSEC-2020-0105.html'
+      }, {
+          'type': 'REPORT',
+          'url': 'https://github.com/rodrimati1992/abi_stable_crates/issues/44'
+      }],
+      'affected': [{
+          'package': {
+              'name': 'abi_stable',
+              'ecosystem': 'crates.io',
+              'purl': 'pkg:cargo/abi_stable'
+          },
+          'ranges': [{
+              'type': 'SEMVER',
+              'events': [{
+                  'introduced': '0.0.0-0'
+              }, {
+                  'fixed': '0.9.1'
+              }]
+          }],
+          'ecosystem_specific': {
+              'affects': {
+                  'functions': [],
+                  'arch': [],
+                  'os': []
+              }
+          },
+          'database_specific': {
+              'informational': None,
+              'cvss': 'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H',
+              'categories': ['memory-corruption'],
+              'source': 'https://github.com/rustsec/advisory-db/blob/'
+                        'osv/crates/RUSTSEC-2020-0105.json'
+          }
       }]
   }
 
@@ -369,6 +437,20 @@ class IntegrationTests(unittest.TestCase):
     self.assertEqual(2, len(response_json['vulns']))
     self.assertCountEqual(['GO-2021-0061', 'GO-2020-0036'],
                           [vuln['id'] for vuln in response_json['vulns']])
+
+  def test_query_purl(self):
+    """Test querying by PURL."""
+    response = requests.post(
+        _api() + '/v1/query',
+        data=json.dumps({
+            'version': '0.9.0',
+            'package': {
+                'purl': 'pkg:cargo/abi_stable',
+            }
+        }))
+
+    self.assert_results_equal({'vulns': [self._VULN_RUSTSEC_2020_0105]},
+                              response.json())
 
 
 def print_logs(filename):
