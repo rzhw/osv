@@ -2,6 +2,7 @@
 
 $osv-background: #292929;
 $osv-text-color: #fff;
+$osv-accent-color: #c5221f;
 $osv-font-family: string.unquote('Overpass, sans-serif');
 $osv-heading-font-family: string.unquote('"Overpass Mono", monospace');
 
@@ -204,24 +205,41 @@ dl.vulnerability-details,
   }
 }
 
+.vulnerability-packages-container {
+  margin-top: 80px;
+}
+
 .vulnerability-packages {
-  // Settings for <spicy-sections>.
+  h2 {
+    background: #aaa;
+    color: #000;
+    display: inline-block;
+    font-size: 14px;
+    padding: 16px;
+  }
+
+  .subtitle {
+    font-family: $osv-heading-font-family;
+    font-size: 20px;
+  }
+
+  // Tab bar styling.
   --const-mq-affordances:
     [screen] tab-bar
   ;
-
-  // Tab bar styling.
   &[affordance="tab-bar"] h2 {
-    color: #000;
-    cursor: pointer;
-    padding: 10px;
+    cursor: default;
 
-    &[tabindex="0"] {
-      background: #fff;
+    // Default tab spacing of 20px. First tab should match grid margin.
+    margin-left: 20px;
+    &:first-of-type {
+      margin-left: var(--mdc-layout-grid-margin-desktop);
     }
 
-    &:not([tabindex="0"]) {
-      background: #aaa;
+    // Selected tab styling.
+    &[tabindex="0"] {
+      background: #fff;
+      color: $osv-accent-color;
     }
   }
 
@@ -233,9 +251,5 @@ dl.vulnerability-details,
   .vulnerability-package-subsection {
     padding: 14px 0;
     border-bottom: 1px dashed #fff;
-  }
-
-  .subtitle {
-    font-family: $osv-heading-font-family;
   }
 }
